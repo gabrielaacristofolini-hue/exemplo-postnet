@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* Variáveis de Cores da Marca (Baseado no padrão Postnet) */
+        /* Variáveis de Cores da Marca */
         :root {
             --postnet-red: #E31837;
             --postnet-black: #231F20;
@@ -26,6 +26,7 @@
             background-color: #ffffff;
             color: var(--postnet-black);
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         /* Cabeçalho */
@@ -42,7 +43,7 @@
         }
 
         .logo img {
-            height: 50px; /* Substitua pelo link da sua logo */
+            height: 50px; 
         }
 
         nav ul {
@@ -62,7 +63,7 @@
             color: var(--postnet-red);
         }
 
-        /* Seção Hero (Destaque Principal) */
+        /* Seção Hero */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1562564055-71e051d33c19?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
             color: #ffffff;
@@ -91,7 +92,10 @@
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;
+            border: none;
+            cursor: pointer;
             transition: background 0.3s;
+            font-size: 1rem;
         }
 
         .btn:hover {
@@ -142,16 +146,56 @@
             margin-bottom: 15px;
         }
 
+        /* Seção de Cotação */
+        .quote-section {
+            padding: 60px 20px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .quote-section h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .quote-section p {
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .quote-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .quote-form label {
+            font-weight: 600;
+            margin-bottom: -5px;
+        }
+
+        .quote-form input, .quote-form select, .quote-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .quote-form textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
         /* Rodapé e Contato */
         footer {
             background-color: var(--postnet-black);
             color: #ffffff;
             padding: 40px 20px;
             text-align: center;
-        }
-
-        footer p {
-            margin-bottom: 10px;
         }
 
         .footer-info {
@@ -209,7 +253,8 @@
         <nav>
             <ul>
                 <li><a href="#inicio">Início</a></li>
-                <li><a href="#servicos">Nossos Serviços</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#cotacao">Cotação</a></li>
                 <li><a href="#contato">Localização</a></li>
             </ul>
         </nav>
@@ -218,7 +263,7 @@
     <section class="hero" id="inicio">
         <h1>Bem-vindo à <span>Postnet Vitória</span></h1>
         <p>Sua central de soluções para Envios, Impressão Gráfica e Logística no Espírito Santo.</p>
-        <a href="#contato" class="btn">Fale Conosco</a>
+        <a href="#cotacao" class="btn">Fazer uma Cotação</a>
     </section>
 
     <section class="services" id="servicos">
@@ -246,6 +291,29 @@
         </div>
     </section>
 
+    <section class="quote-section" id="cotacao">
+        <h2>Solicite sua Cotação Rápida</h2>
+        <p>Preencha os dados abaixo e te responderemos pelo WhatsApp com os melhores preços e prazos.</p>
+        
+        <form class="quote-form" id="formCotacao">
+            <label for="nome">Seu Nome:</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+            <label for="servico">Tipo de Serviço:</label>
+            <select id="servico" required>
+                <option value="Envio de Encomenda (Nacional)">Envio de Encomenda (Nacional)</option>
+                <option value="Envio de Encomenda (Internacional)">Envio de Encomenda (Internacional)</option>
+                <option value="Serviço Gráfico / Impressão">Serviço Gráfico / Impressão</option>
+                <option value="Outros">Outros</option>
+            </select>
+
+            <label for="detalhes">Detalhes da Cotação:</label>
+            <textarea id="detalhes" placeholder="Para envios, informe: CEP de Origem e Destino, Peso e Medidas (Altura x Largura x Comprimento). Para gráficas: o que deseja imprimir, quantidade e tamanho." required></textarea>
+
+            <button type="submit" class="btn"><i class="fa-brands fa-whatsapp"></i> Receber Cotação no WhatsApp</button>
+        </form>
+    </section>
+
     <footer id="contato">
         <div class="footer-info">
             <div>
@@ -266,6 +334,30 @@
     <a href="https://wa.me/5527999999999?text=Olá!%20Gostaria%20de%20informações%20sobre%20os%20serviços%20da%20Postnet%20Vitória." class="whatsapp-float" target="_blank" rel="noopener noreferrer">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <script>
+        document.getElementById('formCotacao').addEventListener('submit', function(event) {
+            // Impede o formulário de recarregar a página
+            event.preventDefault();
+
+            // Pega os valores preenchidos
+            const nome = document.getElementById('nome').value;
+            const servico = document.getElementById('servico').value;
+            const detalhes = document.getElementById('detalhes').value;
+
+            // Monta a mensagem que será enviada
+            const mensagem = `*Nova Solicitação de Cotação pelo Site*%0A%0A*Nome:* ${nome}%0A*Serviço:* ${servico}%0A*Detalhes:* ${detalhes}`;
+
+            // Número do WhatsApp da loja (Substitua pelo seu número real, mantendo o 55 no início)
+            const telefoneLoja = "5527999999999"; 
+
+            // Cria o link do WhatsApp
+            const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${mensagem}`;
+
+            // Redireciona o cliente para o WhatsApp com a mensagem pronta
+            window.open(urlWhatsApp, '_blank');
+        });
+    </script>
 
 </body>
 </html>
