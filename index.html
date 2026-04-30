@@ -43,7 +43,7 @@
         }
 
         .logo img {
-            height: 50px; 
+            height: 45px; 
         }
 
         nav ul {
@@ -74,6 +74,7 @@
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 20px;
+            line-height: 1.2;
         }
 
         .hero h1 span {
@@ -88,7 +89,7 @@
         .btn {
             background-color: var(--postnet-red);
             color: #ffffff;
-            padding: 12px 25px;
+            padding: 15px 30px; /* Aumentado para facilitar o clique no mobile */
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;
@@ -96,6 +97,8 @@
             cursor: pointer;
             transition: background 0.3s;
             font-size: 1rem;
+            display: inline-block;
+            width: fit-content;
         }
 
         .btn:hover {
@@ -128,7 +131,8 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            width: 300px;
+            width: 100%; /* Adaptável */
+            max-width: 320px; /* Limite de largura para desktop */
             transition: transform 0.3s;
         }
 
@@ -179,7 +183,7 @@
 
         .quote-form input, .quote-form select, .quote-form textarea {
             width: 100%;
-            padding: 12px;
+            padding: 15px; /* Maior área de toque para mobile */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
@@ -188,6 +192,11 @@
         .quote-form textarea {
             resize: vertical;
             height: 120px;
+        }
+        
+        .quote-form .btn {
+            width: 100%; /* Botão ocupa toda a largura no formulário */
+            text-align: center;
         }
 
         /* Rodapé e Contato */
@@ -232,14 +241,50 @@
             color: #FFF;
         }
 
-        /* Responsividade */
+        /* =========================================
+           REGRAS ESPECÍFICAS PARA MOBILE (RESPONSIVIDADE)
+           ========================================= */
         @media(max-width: 768px) {
             header {
+                padding: 15px 20px; /* Reduz o espaço lateral */
                 flex-direction: column;
                 gap: 15px;
             }
+
+            nav ul {
+                flex-wrap: wrap; /* Permite que o menu quebre linha se necessário */
+                justify-content: center;
+                gap: 15px;
+                font-size: 0.9rem; /* Fonte levemente menor para caber na tela */
+            }
+
+            .hero {
+                padding: 60px 15px; /* Reduz o espaço vertical no topo */
+            }
+
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem; /* Ajusta o título para não vazar a tela */
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .services h2, .quote-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .footer-info {
+                flex-direction: column; /* Empilha o endereço e os horários */
+                gap: 20px;
+            }
+
+            .whatsapp-float {
+                width: 50px; /* Botão ligeiramente menor no celular para não cobrir o texto */
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 28px;
             }
         }
     </style>
@@ -261,7 +306,7 @@
     </header>
 
     <section class="hero" id="inicio">
-        <h1>Bem-vindo à <span>Postnet Vitória</span></h1>
+        <h1>Bem-vindo à <br><span>Postnet Vitória</span></h1>
         <p>Sua central de soluções para Envios, Impressão Gráfica e Logística no Espírito Santo.</p>
         <a href="#cotacao" class="btn">Fazer uma Cotação</a>
     </section>
@@ -308,7 +353,7 @@
             </select>
 
             <label for="detalhes">Detalhes da Cotação:</label>
-            <textarea id="detalhes" placeholder="Para envios, informe: CEP de Origem e Destino, Peso e Medidas (Altura x Largura x Comprimento). Para gráficas: o que deseja imprimir, quantidade e tamanho." required></textarea>
+            <textarea id="detalhes" placeholder="Para envios: CEP (Origem/Destino), Peso e Medidas. Para gráficas: Produto, quantidade e tamanho." required></textarea>
 
             <button type="submit" class="btn"><i class="fa-brands fa-whatsapp"></i> Receber Cotação no WhatsApp</button>
         </form>
@@ -319,8 +364,7 @@
             <div>
                 <h3><i class="fa-solid fa-location-dot"></i> Onde Estamos</h3>
                 <p>Vitória, Espírito Santo - ES</p>
-                <p>Insira o seu endereço completo aqui</p>
-            </div>
+                <p>Rua Exemplo, 123 - Bairro Centro</p> </div>
             <div>
                 <h3><i class="fa-solid fa-clock"></i> Horário de Funcionamento</h3>
                 <p>Segunda a Sexta: 09:00 - 18:00</p>
@@ -337,24 +381,18 @@
 
     <script>
         document.getElementById('formCotacao').addEventListener('submit', function(event) {
-            // Impede o formulário de recarregar a página
             event.preventDefault();
 
-            // Pega os valores preenchidos
             const nome = document.getElementById('nome').value;
             const servico = document.getElementById('servico').value;
             const detalhes = document.getElementById('detalhes').value;
 
-            // Monta a mensagem que será enviada
             const mensagem = `*Nova Solicitação de Cotação pelo Site*%0A%0A*Nome:* ${nome}%0A*Serviço:* ${servico}%0A*Detalhes:* ${detalhes}`;
 
-            // Número do WhatsApp da loja (Substitua pelo seu número real, mantendo o 55 no início)
+            // MUDE AQUI PARA O NÚMERO DA LOJA
             const telefoneLoja = "5527999999999"; 
 
-            // Cria o link do WhatsApp
             const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${mensagem}`;
-
-            // Redireciona o cliente para o WhatsApp com a mensagem pronta
             window.open(urlWhatsApp, '_blank');
         });
     </script>
